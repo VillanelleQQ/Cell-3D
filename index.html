@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>细胞 · 三维结构</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+  <script defer src="./vendor/lucide.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="brand"><i data-lucide="microscope"></i><div><h1>细胞 · 三维结构</h1><span>植物细胞 / 动物细胞</span></div></div>
+    <nav aria-label="细胞类型"><button class="active" data-view="both">双细胞</button><button data-view="plant">植物细胞</button><button data-view="animal">动物细胞</button></nav>
+    <button id="reference" class="text-button"><i data-lucide="image"></i>参考图片</button>
+  </header>
+  <main>
+    <section id="viewport" aria-label="交互式三维细胞">
+      <div class="scene-heading"><span id="view-name">植物细胞与动物细胞</span><span class="badge">教学结构模型</span></div>
+      <div class="toolbar" aria-label="三维工具">
+        <div class="tool-group"><button id="orbit" class="icon-button active" title="旋转视角" aria-label="旋转视角" aria-pressed="true"><i data-lucide="rotate-3d"></i></button><button id="move" class="icon-button" title="拖动细胞或选中的细胞器" aria-label="拖动细胞或选中的细胞器" aria-pressed="false"><i data-lucide="move"></i></button></div>
+        <button id="reset" class="icon-button" title="复位模型和视角" aria-label="复位模型和视角"><i data-lucide="rotate-ccw"></i></button>
+        <button id="auto" class="icon-button" title="自动旋转" aria-label="自动旋转" aria-pressed="false"><i data-lucide="play"></i></button>
+        <button id="export" class="icon-button" title="导出当前细胞 GLB" aria-label="导出当前细胞 GLB"><i data-lucide="download"></i></button>
+      </div>
+      <div id="loading" role="status">正在构建三维模型...</div>
+      <div class="scene-footer"><span><b class="dot plant-dot"></b>植物细胞</span><span><b class="dot animal-dot"></b>动物细胞</span><span id="selection-status" aria-live="polite">未选择部件</span></div>
+      <div id="error" role="alert" hidden></div>
+    </section>
+    <aside>
+      <section class="settings">
+        <h2>模型视图</h2>
+        <label class="slider-label" for="opacity">外壳透明度 <output id="opacity-value">65%</output></label><input id="opacity" type="range" min="15" max="100" value="65">
+        <label class="slider-label" for="explode">部件拆分 <output id="explode-value">0%</output></label><input id="explode" type="range" min="0" max="100" value="0">
+      </section>
+      <section class="structures"><div class="section-title"><h2>细胞结构</h2><button id="show-all" class="icon-button small" title="显示全部部件" aria-label="显示全部部件"><i data-lucide="eye"></i></button></div><div id="parts"></div></section>
+      <section id="detail"><span class="eyebrow">结构信息</span><h2 id="detail-name">植物细胞与动物细胞</h2><p id="detail-description">真核细胞具有细胞膜、细胞质和细胞核。植物细胞还具有细胞壁、叶绿体和中央液泡。</p></section>
+    </aside>
+  </main>
+  <dialog id="reference-dialog"><div class="dialog-heading"><h2>原始参考图片</h2><button id="close-reference" class="icon-button" aria-label="关闭" title="关闭"><i data-lucide="x"></i></button></div><img src="./reference.jpg" alt="植物细胞和动物细胞教学剖面参考图"><p>单张图片指导的教学示意模型；隐藏结构与被裁切部分采用结构先验补全，比例不用于测量。</p></dialog>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
